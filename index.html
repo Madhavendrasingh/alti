@@ -30,46 +30,23 @@
 <script>
 function fn()
 {
- 	var t=	document.getElementById("zoom");
-	var raster = new ol.layer.Tile({
-        source: new ol.source.OSM()
-      });
-      var source = new ol.source.Vector();
-      var vector = new ol.layer.Vector({
-        source: source,
-        style: new ol.style.Style({
-          fill: new ol.style.Fill({
-            color: 'rgba(255, 255, 255, 0.35)'
-          }),
-          stroke: new ol.style.Stroke({
-            color: '#ffcc33',
-            width: 2
-          }),
-          image: new ol.style.Circle({
-            radius: 7,
-            fill: new ol.style.Fill({
-              color: '#ffcc33'
-            })
+	    var map = new ol.Map({
+        layers: [
+          new ol.layer.Tile({
+            source: new ol.source.OSM()
           })
-        })
-      });
-	
-	if(t!="")
-	{
-	var la= parseFloat(12.33);
-	var lo= parseFloat(77.095)
-	var i=parseInt(15);
-	var map = new ol.Map({
+        ],
         target: 'map',
-        layers: [raster,vector],
-	
+        controls: ol.control.defaults({
+          attributionOptions: {
+            collapsible: false
+          }
+        }),
         view: new ol.View({
-          center: ol.proj.fromLonLat([lo,la]),
-          zoom: i
+          center: [0, 0],
+          zoom: 2
         })
       });
-	}
-	 var modify = new ol.interaction.Modify({source: source});
 }
 </script>
 
