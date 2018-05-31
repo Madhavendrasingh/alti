@@ -20,14 +20,7 @@
 
 					<div class="wrap-contact3-form-radio">
 						
-				<div>
-					<iframe width="400px" height="400p" frameborder="0" src="https://www.bing.com/maps/embed?h=400&w=500&cp=12.896100000000004~77.42870000000002&lvl=11&typ=d&sty=r&src=SHELL&FORM=MBEDV8" scrolling="no">
-					</iframe>
-						<div style="white-space: nowrap; text-align: center; width: 500px; padding: 6px 0;">
-							<a id="largeMapLink" target="_blank" href="https://www.bing.com/maps?cp=12.896100000000004~77.42870000000002&amp;sty=r&amp;lvl=11&amp;FORM=MBEDLD">View Larger Map</a> &nbsp; | &nbsp;
-							<a id="dirMapLink" target="_blank" href="https://www.bing.com/maps/directions?cp=12.896100000000004~77.42870000000002&amp;sty=r&amp;lvl=11&amp;rtp=~pos.12.896100000000004_77.42870000000002____&amp;FORM=MBEDLD">Get Directions</a>
-						</div>
-				</div>	
+					<div id="map" class="map"></div>
 				
 				</form>
 			</div>
@@ -35,6 +28,48 @@
 	</div>
 
 <script>
+function fn()
+{
+ 	var t=	document.getElementById("zoom");
+	var raster = new ol.layer.Tile({
+        source: new ol.source.OSM()
+      });
+      var source = new ol.source.Vector();
+      var vector = new ol.layer.Vector({
+        source: source,
+        style: new ol.style.Style({
+          fill: new ol.style.Fill({
+            color: 'rgba(255, 255, 255, 0.35)'
+          }),
+          stroke: new ol.style.Stroke({
+            color: '#ffcc33',
+            width: 2
+          }),
+          image: new ol.style.Circle({
+            radius: 7,
+            fill: new ol.style.Fill({
+              color: '#ffcc33'
+            })
+          })
+        })
+      });
+	
+	if(t!="")
+	{
+	var la= parseFloat(document.getElementById("lat").value);
+	var lo= parseFloat(document.getElementById("lon").value)
+	var i=parseInt(document.getElementById("zoom").value);
+	var map = new ol.Map({
+        target: 'map',
+        layers: [raster,vector],
+	
+        view: new ol.View({
+          center: ol.proj.fromLonLat([lo,la]),
+          zoom: i
+        })
+      });
+	}    
+}
 </script>
 
 </body>
