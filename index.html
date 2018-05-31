@@ -22,7 +22,11 @@
 					</span>
 
 					<div class="wrap-contact3-form-radio">
-						
+						<div class="container-contact3-form-btn">
+						<button class="contact3-form-btn" onclick="init()">
+							Submit
+						</button>
+					</div>
 					<div id="map" class="map"height="500px" width="85%"></div>
 				
 				</form>
@@ -44,7 +48,8 @@
  	         }
  	   }; xobj.send(null);  
  	}
- 
+ function loadJSON(callback) {   
+
  	loadJSON(function(response) {
  	 // Parse JSON string into object
  	   var data = JSON.parse(response);
@@ -106,6 +111,7 @@
       });
 	
 	});
+ }
 </script>
 
 </body>
