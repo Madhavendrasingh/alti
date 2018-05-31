@@ -4,13 +4,7 @@
 	<title>SAMPLE DSIPLAY</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	
-	
-	.map 
-	{
-        	height: 500px;
-        	width: 85%;
-      	}
+
 	<script src="https://openlayers.org/en/v4.6.5/build/ol.js"></script>
 	<link rel="stylesheet" href="https://openlayers.org/en/v4.6.5/css/ol.css" type="text/css">
 	<link rel="stylesheet" type="text/css" href="util.css">
@@ -29,7 +23,7 @@
 
 					<div class="wrap-contact3-form-radio">
 						
-					<div id="map" class="map"></div>
+					<div id="map" class="map"height="500px" width="85%"></div>
 				
 				</form>
 			</div>
@@ -64,8 +58,22 @@
         })
       });
 	
-	var la= parseFloat(document.getElementById("lat").value);
-	var lo= parseFloat(document.getElementById("lon").value)
+	var requestURL = 'bluzone.io/portal/papis/v1/projects/4221/devices/beacons/15867524323877569123';
+	var request = new XMLHttpRequest();
+	request.open('GET', requestURL);
+	request.responseType = 'text';
+	request.responseType = 'json';
+	request.send();
+	request.onload = function() 
+	{
+ 		var data = request.response;
+ 	}
+	var n = data.search("latitude");
+	var n1 =data.search("longitude");
+	var lati=data.substring(n+1, 7);
+	var loon=data.substring(n1+1, 7);
+	var la= parseFloat(lati);
+	var lo= parseFloat(loon);
 	var i=parseInt(document.getElementById("zoom").value);
 	var map = new ol.Map({
         target: 'map',
