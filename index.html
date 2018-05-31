@@ -34,7 +34,6 @@
 	<h5 hidden>Zoom * <input type="number" id="zoom" max="22" hidden value="15" required title="16 or above for Street view"> </h5>
 	
 <script>
-	  var t=	document.getElementById("zoom");
 	var raster = new ol.layer.Tile({
         source: new ol.source.OSM()
       });
@@ -59,8 +58,6 @@
         })
       });
 	
-	if(t!="")
-	{
 	var la= parseFloat(document.getElementById("lat").value);
 	var lo= parseFloat(document.getElementById("lon").value)
 	var i=parseInt(document.getElementById("zoom").value);
