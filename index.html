@@ -34,11 +34,6 @@
 	<h5 hidden>Zoom * <input type="number" id="zoom" max="22" hidden value="15"> </h5>
 	
 <script>
-	var raster = new ol.layer.Tile({
-        source: new ol.source.OSM()
-      });
-      var la,lo;
-      var source = new ol.source.Vector();
 	function loadJSON(callback) {   
 
 	    var xobj = new XMLHttpRequest();
@@ -55,9 +50,13 @@
  	   var data = JSON.parse(response);
 		la=(data["latitude"]);
 		lo=(data["longititude"]);
- 		});
 
-      
+		var raster = new ol.layer.Tile({
+        source: new ol.source.OSM()
+      });
+      var la,lo;
+      var source = new ol.source.Vector();
+	      
 	var vector = new ol.layer.Vector({
         source: source,
         style: new ol.style.Style({
@@ -105,8 +104,8 @@
           zoom: i
         })
       });
-	document.write(la);
 	
+	});
 </script>
 
 </body>
