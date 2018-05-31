@@ -167,7 +167,7 @@ var map = new ol.Map({
 	  
 	  
 	//Overlaying the geospatial data and zooming in on the location 
-	
+	var data;
 	var requestURL = 'bluzone.io/portal/papis/v1/projects/4221/devices/beacons/15867524323877569123';
 	var request = new XMLHttpRequest();
 	request.open('GET', requestURL);
@@ -175,7 +175,7 @@ var map = new ol.Map({
 	request.send();
 	request.onload = function() 
 	{
- 		var data = request.response;
+ 		 data = request.response;
  	}
 	var n = data.search("latitude");
 	var n1 =data.search("longitude");
