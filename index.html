@@ -37,11 +37,30 @@
 	var raster = new ol.layer.Tile({
         source: new ol.source.OSM()
       });
-
+      var la,lo;
       var source = new ol.source.Vector();
-	var data=loadJSON("fetch.json");
-      var la= parseFloat(data.latitude);
-      var lo= parseFloat(data.longititude);
+	unction loadJSON(callback) {   
+
+    var xobj = new XMLHttpRequest();
+        xobj.overrideMimeType("application/json");
+    xobj.open('GET', 'local.json', true); // Replace 'my_data' with the path to your file
+    xobj.onreadystatechange = function () {
+          if (xobj.readyState == 4 && xobj.status == "200") {
+            // Required use of an anonymous callback as .open will NOT return a value but simply returns undefined in asynchronous mode
+            callback(xobj.responseText);
+          }
+    };
+    xobj.send(null);  
+ }
+ function init() {
+ loadJSON(function(response) {
+  // Parse JSON string into object
+    var data = JSON.parse(response);
+	la=(data["latitude"]);
+	 lo=(data["longititude"]);
+ });
+
+      
 	var vector = new ol.layer.Vector({
         source: source,
         style: new ol.style.Style({
