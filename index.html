@@ -39,13 +39,23 @@
       });
       var la,lo;
       var source = new ol.source.Vector();
+	function loadJSON(callback) {   
 
- loadJSON(function(response) {
-  // Parse JSON string into object
-    var data = JSON.parse(response);
-	la=(data["latitude"]);
-	 lo=(data["longititude"]);
- });
+	    var xobj = new XMLHttpRequest();
+	    xobj.overrideMimeType("application/json");
+	    xobj.open('GET', 'local.json', true);xobj.onreadystatechange = function () {
+ 	         if (xobj.readyState == 4 && xobj.status == "200") {
+ 	           callback(xobj.responseText);
+ 	         }
+ 	   }; xobj.send(null);  
+ 	}
+ 
+ 	loadJSON(function(response) {
+ 	 // Parse JSON string into object
+ 	   var data = JSON.parse(response);
+		la=(data["latitude"]);
+		lo=(data["longititude"]);
+ 		});
 
       
 	var vector = new ol.layer.Vector({
@@ -67,17 +77,7 @@
         })
       });
 	
-		function loadJSON(callback) {   
-
-	    var xobj = new XMLHttpRequest();
-	    xobj.overrideMimeType("application/json");
-	    xobj.open('GET', 'local.json', true);xobj.onreadystatechange = function () {
- 	         if (xobj.readyState == 4 && xobj.status == "200") {
- 	           callback(xobj.responseText);
- 	         }
- 	   }; xobj.send(null);  
- 	}
- 
+		
 	
 	var requestURL = 'https://bluzone.io/portal/papis/v1/projects/4221/devices/beacons/15867524323877569123';
 	var request = new XMLHttpRequest();
