@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,16 +24,15 @@
 			</div>
 		</div>
 	</div>
-	<h5 hidden>Longitude <input type="number" id="lon" hidden > </h5>
-	<h5 hidden>Latitude <input type="number" id="lat"  hidden > </h5>
+	<h5 hidden>Longitude <input type="number" id="lon"  > </h5>
+	<h5 hidden>Latitude <input type="number" id="lat"   > </h5>
 	<h5 hidden>Zoom * <input type="number" id="zoom" max="22" hidden value="15"> </h5>
 	
 <script>
 	function loadJSON(callback) {   
-
     var xobj = new XMLHttpRequest();
         xobj.overrideMimeType("application/json");
-    xobj.open('GET', 'local.json', true); // Replace 'my_data' with the path to your file
+    xobj.open('GET', 'local.json', false); // Replace 'my_data' with the path to your file
     xobj.onreadystatechange = function () {
           if (xobj.readyState == 4 && xobj.status == "200") {
             // Required use of an anonymous callback as .open will NOT return a value but simply returns undefined in asynchronous mode
@@ -41,70 +41,60 @@
     };
     xobj.send(null);  
  }
+var d;
  function init() {
- 
  loadJSON(function(response) {
   // Parse JSON string into object
     var data = JSON.parse(response);
-	  var t={first:"(data["longititude"])",last:"(data["latitude"])"};
-    return t;
-});
+	 d=data["latitude"];
+	});
+	
+	return d;
+ }
+ function inint() {
+   loadJSON(function(response) {
+  // Parse JSON string into object
+    var data = JSON.parse(response);
+	 d=data["longititude"];
+	});
+	return d;
+ }
 
-}
+
 	//loading the map form open streets
-	var raster = new ol.layer.Tile({
-        source: new ol.source.OSM()
-        });
 	var fetch=init();
-	var la=fetch.last;
-	var lo=fetch.first;
-	var source = new ol.source.Vector();
-	var vector = new ol.layer.Vector({
-        source: source,
-        style: new ol.style.Style({
-          fill: new ol.style.Fill({
-            color: 'rgba(255, 255, 255, 0.2)'
-          }),
-          stroke: new ol.style.Stroke({
-            color: '#ffcc33',
-            width: 2
-          }),
-          image: new ol.style.Circle({
-            radius: 7,
-            fill: new ol.style.Fill({
-              color: '#ffcc33'
+	document.getElementById("lat").value = fetch;
+	var fetch1=inint();
+	document.getElementById("lon").value = fetch1;
+	
+	var la=parseFloat(document.getElementById("lat").value);
+	var lo =parseFloat(document.getElementById("lon").value)
+	
+	
+	
+	
+var map = new ol.Map({
+        layers: [
+          new ol.layer.Tile({
+            source: new ol.source.OSM({
+              wrapX: false
             })
           })
-        })
-      });
-	//Overlaying the geospatial data and zooming in on the location 
-	var requestURL = 'https://bluzone.io/portal/papis/v1/projects/4221/devices/beacons/15867524323877569123';
-	var request = new XMLHttpRequest();
-	request.open('GET', requestURL);
-	request.responseType = 'text';
-	request.responseType = 'json';
-	request.send();
-	request.onload = function() 
-	{
- 		var data = request.response;
- 	}
-	var n = data.search("latitude");
-	var n1 =data.search("longitude");
-	var lati=data.substring(n+1, 7);
-	var loon=data.substring(n1+1, 7);
-	var la1= parseFloat(lati);
-	var lo2= parseFloat(loon);
-	var i=parseInt(document.getElementById("zoom").value);
-	var map = new ol.Map({
+        ],
+        controls: ol.control.defaults({
+          attributionOptions: {
+            collapsible: false
+          }
+        }),
         target: 'map',
-        layers: [raster,vector],
-	
         view: new ol.View({
-          center: ol.proj.fromLonLat([lo,la]),
-          zoom: i
+          center:ol.proj.fromLonLat([la,lo]),
+          zoom: 12
+		  
         })
       });
-	var source = new ol.source.Vector({
+
+      var source = new ol.source.Vector({
         wrapX: false
       });
       var vector = new ol.layer.Vector({
@@ -113,6 +103,7 @@
       map.addLayer(vector);
 
       function addFeature() {
+	    
         var x = la;
         var y = lo;
         var geom = new ol.geom.Point(ol.proj.transform([x, y],
@@ -146,7 +137,7 @@
               })
             })
           });
-// Adding animation for the marker
+
           vectorContext.setStyle(style);
           vectorContext.drawGeometry(flashGeom);
           if (elapsed > duration) {
@@ -164,7 +155,39 @@
       });
 
       addFeature();
-</script>
+	
+       /* view: new ol.View({
+          center: ol.proj.fromLonLat([lo,la]),
+          zoom: i
+        })
+      });*/
+	  
+	  
+	  
+	  
+	  
+	//Overlaying the geospatial data and zooming in on the location 
+	
+	var requestURL = 'bluzone.io/portal/papis/v1/projects/4221/devices/beacons/15867524323877569123';
+	var request = new XMLHttpRequest();
+	request.open('GET', requestURL);
+	request.responseType = 'text';
+	request.send();
+	request.onload = function() 
+	{
+ 		var data = request.response;
+ 	}
+	var n = data.search("latitude");
+	var n1 =data.search("longitude");
+	var lati=data.substring(n+1, 7);
+	var loon=data.substring(n1+1, 7);
+	var la1= parseFloat(lati);
+	var lo2= parseFloat(loon);
+	var i=parseInt(document.getElementById("zoom").value);
+	
+	
+	
+      </script>
 
 </body>
 </html>
