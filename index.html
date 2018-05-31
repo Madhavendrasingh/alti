@@ -48,20 +48,23 @@
  	         }
  	   }; xobj.send(null);  
  	}
- function loadJSON(callback) {   
+ function init() {   
 
  	loadJSON(function(response) {
  	 // Parse JSON string into object
  	   var data = JSON.parse(response);
-		la=(data["latitude"]);
-		lo=(data["longititude"]);
-
-		var raster = new ol.layer.Tile({
+		var s=(data["latitude"]);
+		var t=(data["longititude"]);
+		fin(s,t);
+	}
+		
+	function fin(last,final){
+	var raster = new ol.layer.Tile({
         source: new ol.source.OSM()
-      });
-      var la,lo;
-      var source = new ol.source.Vector();
-	      
+        });
+	var la=last;
+	var lo=final;
+	var source = new ol.source.Vector();
 	var vector = new ol.layer.Vector({
         source: source,
         style: new ol.style.Style({
@@ -110,8 +113,8 @@
         })
       });
 	
-	});
- }
+	}
+ 
 </script>
 
 </body>
