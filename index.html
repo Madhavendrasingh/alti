@@ -39,7 +39,10 @@
       });
 
       var source = new ol.source.Vector();
-      var vector = new ol.layer.Vector({
+	var data=loadJSON("fetch.json");
+      var la= parseFloat(data.latitude);
+      var lo= parseFloat(data.longititude);
+	var vector = new ol.layer.Vector({
         source: source,
         style: new ol.style.Style({
           fill: new ol.style.Fill({
@@ -58,7 +61,7 @@
         })
       });
 	
-	var requestURL = 'bluzone.io/portal/papis/v1/projects/4221/devices/beacons/15867524323877569123';
+	var requestURL = 'https://bluzone.io/portal/papis/v1/projects/4221/devices/beacons/15867524323877569123';
 	var request = new XMLHttpRequest();
 	request.open('GET', requestURL);
 	request.responseType = 'text';
@@ -72,8 +75,8 @@
 	var n1 =data.search("longitude");
 	var lati=data.substring(n+1, 7);
 	var loon=data.substring(n1+1, 7);
-	var la= parseFloat(lati);
-	var lo= parseFloat(loon);
+	var la1= parseFloat(lati);
+	var lo2= parseFloat(loon);
 	var i=parseInt(document.getElementById("zoom").value);
 	var map = new ol.Map({
         target: 'map',
