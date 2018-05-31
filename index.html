@@ -4,7 +4,8 @@
 	<title>SAMPLE DSIPLAY</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-
+	
+	<script src="offset.js"></script>
 	<script src="https://openlayers.org/en/v4.6.5/build/ol.js"></script>
 	<link rel="stylesheet" href="https://openlayers.org/en/v4.6.5/css/ol.css" type="text/css">
 	<link rel="stylesheet" type="text/css" href="util.css">
@@ -34,7 +35,7 @@
         });
 	var fetch=init();
 	var la=fetch.last;
-	var lo=final.end;
+	var lo=fetch.first;
 	var source = new ol.source.Vector();
 	var vector = new ol.layer.Vector({
         source: source,
