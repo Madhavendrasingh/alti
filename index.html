@@ -5,7 +5,6 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	
-	<script src="offset.js"></script>
 	<script src="https://openlayers.org/en/v4.6.5/build/ol.js"></script>
 	<link rel="stylesheet" href="https://openlayers.org/en/v4.6.5/css/ol.css" type="text/css">
 	<link rel="stylesheet" type="text/css" href="util.css">
@@ -29,6 +28,29 @@
 	<h5 hidden>Zoom * <input type="number" id="zoom" max="22" hidden value="15"> </h5>
 	
 <script>
+	function loadJSON(callback) {   
+
+    var xobj = new XMLHttpRequest();
+        xobj.overrideMimeType("application/json");
+    xobj.open('GET', 'local.json', true); // Replace 'my_data' with the path to your file
+    xobj.onreadystatechange = function () {
+          if (xobj.readyState == 4 && xobj.status == "200") {
+            // Required use of an anonymous callback as .open will NOT return a value but simply returns undefined in asynchronous mode
+            callback(xobj.responseText);
+          }
+    };
+    xobj.send(null);  
+ }
+ function init() {
+ 
+ loadJSON(function(response) {
+  // Parse JSON string into object
+    var data = JSON.parse(response);
+	  var t={first:"(data["longititude"])",last:"(data["latitude"])"};
+    return t;
+});
+
+}
 	//loading the map form open streets
 	var raster = new ol.layer.Tile({
         source: new ol.source.OSM()
