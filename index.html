@@ -22,10 +22,11 @@
 					</span>
 					<div id="map" class="map"height="500px" width="85%"></div>
 				</form>
+					<button id="fetch">Get data</button>
+
 			</div>
 		</div>
 	</div>
-	<button id="fetch">Get data</button>
 	<h5 hidden>Longitude <input type="number" id="lon"  > </h5>
 	<h5 hidden>Latitude <input type="number" id="lat"   > </h5>
 	<h5 hidden>Zoom * <input type="number" id="zoom" max="22" hidden value="15"> </h5>
@@ -190,6 +191,8 @@ var map = new ol.Map({
 	
 	//test code
 	$(document).ready(function(){
+		
+		console.log("everything is loaded");
 		$("#fetch").click(function(){
 		alert("hello working");
 			console.log("This button click");
