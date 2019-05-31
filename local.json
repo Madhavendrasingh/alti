@@ -1,6 +1,10 @@
 {
   "deviceId": "15867524323877569123",
   "projectId": "4221",
+  "virtualDeviceId":null,
+  "name":"Rahul",
+  "status":"ACTIVE",
+  "notes":"decreasing time interval for efficiency\n"
   "latitude": "77.438391",
   "longititude": "12.862969" 
 } 
